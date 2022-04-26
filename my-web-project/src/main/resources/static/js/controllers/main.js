@@ -6,7 +6,7 @@ angular.module('angularJsApp', ['ngResource']).controller('HomeCtrl', ['$scope',
     $('#key').focus();
 
     vm.saveData = function () {
-        $http.post('/api/data?key=' + vm.key + '&value=' + vm.value)
+        $http.post('/api/data?key=' + encodeURIComponent(vm.key) + '&value=' + encodeURIComponent(vm.value))
             .then(function success(json) {
                 console.log(json);
                 vm.getKey = vm.key;
@@ -19,7 +19,7 @@ angular.module('angularJsApp', ['ngResource']).controller('HomeCtrl', ['$scope',
     };
 
     vm.getData = function () {
-        $http.get('/api/data?key=' + vm.getKey)
+        $http.get('/api/data?key=' + encodeURIComponent(vm.getKey))
             .then(function success(response) {
                 vm.response = response.data.result;
             }, function fail(data) {
